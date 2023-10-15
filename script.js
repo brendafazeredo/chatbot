@@ -9,7 +9,6 @@ const API_KEY = "";
 const inputInitHeight = chatInput.scrollHeight;
 
 const createChatLi = (message, className) => {
-    // Create a chat <li> element with passed message and className
     const chatLi = document.createElement("li");
     chatLi.classList.add("chat", className);
     let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
@@ -22,7 +21,6 @@ const generateResponse = (incomingChatLi) => {
     const API_URL = "https://api.openai.com/v1/chat/completions";
     const messageElement = incomingChatLi.querySelector("p");
 
-    // Define the properties and message for the API request
     const requestOptions = {
         method: "POST",
         headers: {
@@ -35,7 +33,6 @@ const generateResponse = (incomingChatLi) => {
         })
     };
 
-    // Send POST request to API, get response
     fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
         messageElement.textContent = data.choices[0].message.content;
     }).catch((error) => {
@@ -48,13 +45,12 @@ const handleChat = () => {
     userMessage = chatInput.value.trim();
     if(!userMessage) return;
     chatInput.value = "";
+    chatInput.style.height = `${inputInitHeight}px`;
 
-    // Append the user's message to the chatbox
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
     chatbox.scrollTo(0, chatbox.scrollHeight);
 
     setTimeout(() => {
-        // Display a "..." message while waiting for the response
         const incomingChatLi = createChatLi("...", "incoming");
         chatbox.appendChild(incomingChatLi);
         chatbox.scrollTo(0, chatbox.scrollHeight);
@@ -63,9 +59,17 @@ const handleChat = () => {
 };
 
 chatInput.addEventListener("input", () => {
-    // Adjust the height of the input textarea based on its content
     chatInput.style.height = `${inputInitHeight}px`;
     chatInput.style.height = `${chatInput.scrollHeight}px`;
+});
+
+chatInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && e.shiftKey || e.key === "Return"&& e.shiftKey) {
+        return;
+    } else if (e.key === "Enter" || e.key === "Return") {
+        e.preventDefault();
+        handleChat();
+    };
 });
 
 sendChatBtn.addEventListener("click", handleChat);
