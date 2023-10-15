@@ -1,6 +1,7 @@
 const chatInput = document.querySelector(".chat-input textarea");
 const sendChatBtn = document.querySelector(".chat-input span");
 const chatbox = document.querySelector(".chatbox");
+const chatbotToggler = document.querySelector(".chatbot-toggler");
 
 let userMessage;
 const API_KEY = "";
@@ -43,6 +44,7 @@ const generateResponse = (incomingChatLi) => {
 const handleChat = () => {
     userMessage = chatInput.value.trim();
     if(!userMessage) return;
+    chatInput.value = "";
 
     // Append the user's message to the chatbox
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
@@ -57,4 +59,5 @@ const handleChat = () => {
     }, 600);
 };
 
+chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
 sendChatBtn.addEventListener("click", handleChat);
