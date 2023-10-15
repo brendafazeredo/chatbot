@@ -24,6 +24,10 @@ The chatbot interface can be opened or closed by clicking the toggle button, pro
 
 **Key Features**
 
-<p>Responsive design for a consistent experience on various devices; <br> Integration with OpenAI for generating chatbot responses; <br> User-friendly chat interface with smooth animations;<b> Error handling for cases where responses cannot be generated; <b> Aesthetic design with visually appealing components.</p>
+<p>Responsive design for a consistent experience on various devices;
+Integration with OpenAI for generating chatbot responses;
+User-friendly chat interface with smooth animations;
+Error handling for cases where responses cannot be generated;
+Aesthetic design with visually appealing components.
   
 <p>This chatbot web application aims to facilitate conversations, answer questions, and engage users in a dynamic and interactive manner. It can be integrated into websites, applications, or platforms to provide automated customer support, answer frequently asked questions, or engage users in a chat-based interface.</p>
