@@ -3,14 +3,15 @@ const sendChatBtn = document.querySelector(".chat-input span");
 const chatbox = document.querySelector(".chatbox");
 
 let userMessage;
-const API_KEY = "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";
+const API_KEY = "";
 
 const createChatLi = (message, className) => {
     // Create a chat <li> element with passed message and className
     const chatLi = document.createElement("li");
     chatLi.classList.add("chat", className);
-    let chatContent = className === "outgoing" ? `<p>${message}</p>` : `<span class="material-symbols-outlined">smart_toy</span><p>${message}</p>`;
+    let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
     chatLi.innerHTML = chatContent;
+    chatLi.querySelector("p").textContent = message;
     return chatLi;
 };
 
@@ -36,7 +37,7 @@ const generateResponse = (incomingChatLi) => {
         messageElement.textContent = data.choices[0].message.content;
     }).catch((error) => {
         messageElement.textContent = "Oops! Something went wrong. Please try again.";
-    })
+    }).finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
 };
 
 const handleChat = () => {
@@ -45,11 +46,13 @@ const handleChat = () => {
 
     // Append the user's message to the chatbox
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+    chatbox.scrollTo(0, chatbox.scrollHeight);
 
     setTimeout(() => {
         // Display a "..." message while waiting for the response
         const incomingChatLi = createChatLi("...", "incoming");
         chatbox.appendChild(incomingChatLi);
+        chatbox.scrollTo(0, chatbox.scrollHeight);
         generateResponse(incomingChatLi);
     }, 600);
 };
